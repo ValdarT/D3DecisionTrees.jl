@@ -15,17 +15,16 @@ This is not a registered package. To install it from this GitHub page, run:
 ] add https://github.com/ValdarT/D3DecisionTrees.jl
 ```
 
-## Usage example with random data
+## Usage example
 
 ```julia
-# random data
-n,m = 10^3, 5;
-features = randn(n,m);
-weights = rand(-2:2,m);
-labels = features * weights;
+using DecisionTree, D3DecisionTrees
 
-# build a regression model
-model = build_tree(labels, features);
+# Fisher's Iris dataset as features and labels
+features, labels = load_data("iris")
+
+# build a classification model
+model = build_tree(labels, features)
 
 # create the D3Tree of the model
 t = D3DecisionTree(model)

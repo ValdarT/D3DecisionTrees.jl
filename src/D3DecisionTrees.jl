@@ -34,10 +34,10 @@ function add_children!(model::Node, tree::Vector{Vector{Int}}, names::Vector{Str
 end
 
 """
-    D3DecisionTree(model::DecisionTree.Node)
+    D3DecisionTree(model)
 
-Construct an interactive tree visualization from a `DecisionTree` model
-to be displayed using D3 in a browser or ipython notebook.
+Construct an interactive tree visualization from a `DecisionTree.jl` model
+to be displayed using D3 in a browser or Jupyter notebook.
 """
 function D3DecisionTree(model::Node)
     modeltree = Vector{Vector{Int}}()
@@ -70,7 +70,23 @@ function D3DecisionTree(model::Node)
     D3Tree(modeltreeout, text=namesout)
 end
 
+function D3DecisionTree(model::Leaf)
+    D3Tree(Int[], text=[name(model)]::Vector{String})
+end
 
-export D3DecisionTree
+function D3DecisionTree(model::Union{DecisionTreeClassifier, DecisionTreeRegressor})
+    D3DecisionTree(model.root)
+end
+
+export
+    D3Tree,
+    D3TreeNode,
+    D3TreeView,
+
+    blink,
+    inchrome,
+    inbrowser,
+
+    D3DecisionTree
 
 end # module
